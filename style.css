@@ -42,6 +42,7 @@ input {
     width: 80%;
     height: 80%;
     border: 10px solid maroon;
+    border-radius: 20px;
     background-color: #582900;
 }
 
