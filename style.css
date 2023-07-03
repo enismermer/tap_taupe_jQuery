@@ -18,12 +18,22 @@ h1 {
 
 #score {
     text-align: center;
-    margin-top: 3em;
+    margin-top: 0em;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+#chrono {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    padding-right: 10em;
 }
 
 #fondJeu {
     text-align: center;
 }
+
 input {
     padding: 10px;
     background-color: green;
@@ -32,10 +42,6 @@ input {
     border-radius: 10px;
 }
 
-#score {
-    font-weight: bold;
-    font-size: 2em;
-}
 
 .trous {
     margin-left: 10%;
