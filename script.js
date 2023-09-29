@@ -33,8 +33,8 @@ $(document).ready(function() {
         
         // Commencer le jeu
         gameInterval = setInterval(function() {
-            $("#chrono").html("00:" + chrono);
             chrono--;
+            $("#chrono").html("00:" + chrono);
             displayTime();
             if (chrono <= 0) {
                 stopGame();
