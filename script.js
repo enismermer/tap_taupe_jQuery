@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    // let score = 0;
-    // let chrono = 30; // Temps initial en secondes
+    let score = 0;
+    let chrono = 30;
     let gameInterval;
-    
+
     // Fonction pour afficher le temps restant au format mm:ss
     function displayTime() {
         const minutes = Math.floor(chrono / 60);
@@ -10,17 +10,12 @@ $(document).ready(function() {
         const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         $("#chrono").text(formattedTime);
     }
-    
+
     // Fonction pour arrêter le jeu
     function stopGame() {
         clearInterval(gameInterval);
         $(".taupe").hide();
         $("#btCommencer").prop("disabled", false).val("Rejouer");
-    }
-
-    // Génération des trous en JavaScript
-    for (let i = 1; i <= 9; i++) {
-        $(".trous").append('<div class="taupe-hole" id="t' + i + '"><img class="taupe" src="img/taupe.png" width="50px" style="display:none;"></div>');
     }
 
     // En cliquant sur "Commencer" ou "Rejouer"
@@ -33,19 +28,35 @@ $(document).ready(function() {
         
         // Commencer le jeu
         gameInterval = setInterval(function() {
-            chrono--;
-            $("#chrono").html("00:" + chrono);
-            displayTime();
+            if (chrono > 0) {
+                chrono--;
+                displayTime();
+            }
             if (chrono <= 0) {
                 stopGame();
-                $(".taupe").hide();
             }
         }, 1000); // Mettre à jour le chrono toutes les secondes
 
-        // Afficher les taupes aléatoirement
+        // Réinitialiser l'affichage des taupes
         $(".taupe").hide();
-        const randomHole = Math.floor(Math.random() * 9) + 1;
-        $("#t" + randomHole + " .taupe").show();
+
+        // Afficher une taupe aléatoire dans un trou
+        function showRandomTaupe() {
+            const randomHole = Math.floor(Math.random() * 9) + 1;
+            const $hole = $(".t" + randomHole + " .taupe");
+            $hole.show();
+
+            // Cacher la taupe après un délai
+            setTimeout(function() {
+                $hole.hide();
+                if (chrono > 0) {
+                    showRandomTaupe(); // Afficher une nouvelle taupe
+                }
+            }, Math.random() * 2000 + 500); // Délai aléatoire entre 0.5 et 2.5 secondes
+        }
+
+        // Démarrer l'affichage aléatoire des taupes
+        showRandomTaupe();
 
         // En cliquant sur une taupe
         $(".taupe").click(function() {
